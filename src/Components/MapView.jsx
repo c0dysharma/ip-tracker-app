@@ -12,9 +12,7 @@ const MapMarker = ({ latLong }) => {
 
   return (
     <Marker icon={markerIcon} position={latLong}>
-      <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup>
+      <Popup>This is the location of your IP or domain</Popup>
     </Marker>
   );
 };
