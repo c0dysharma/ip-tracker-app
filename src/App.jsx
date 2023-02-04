@@ -58,7 +58,7 @@ export default function App() {
         )}
       </main>
       {apidata && (
-        <section className="absolute -z-10 w-full bg-red-500">
+        <section className="absolute -z-10 w-full">
           <MapView latLong={[apidata.location.lat, apidata.location.lng]} />
         </section>
       )}
