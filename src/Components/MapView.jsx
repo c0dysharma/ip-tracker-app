@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
+import L from "leaflet";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
-import markerIcon from "../icon";
+import icon from "../assets/images/icon-location.svg";
+
+const markerIcon = L.icon({
+  iconSize: [32, 40],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+  iconUrl: icon,
+});
 
 const MapMarker = ({ latLong }) => {
   const map = useMap();
