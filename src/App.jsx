@@ -6,7 +6,9 @@ import SearchBar from "./Components/SearchBar";
 import DetailsCard from "./Components/DetailsCard";
 
 const MainHeading = ({ text }) => (
-  <h1 className="text-center text-white font-medium text-3xl p-8">{text}</h1>
+  <h1 className="text-center text-white font-medium text-xl p-4 md:p-8 md:text-3xl">
+    {text}
+  </h1>
 );
 
 export default function App() {
@@ -62,7 +64,7 @@ export default function App() {
 
   return (
     <>
-      <main className="bg-hero-pattern bg-no-repeat w-full bg-cover h-80 tracking-wider md:h-72">
+      <main className="bg-hero-pattern bg-no-repeat w-full bg-cover h-44 tracking-wider md:h-72">
         <MainHeading text="IP Address Tracker" />
         <SearchBar
           onInputChange={(e) => setIpAddress(e.target.value)}

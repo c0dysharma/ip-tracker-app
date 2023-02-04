@@ -30,7 +30,7 @@ const MapView = ({ latLong }) => (
     center={latLong}
     zoom={13}
     scrollWheelZoom={true}
-    className="h-[calc(100vh-320px)] md:h-[calc(100vh-288px)]"
+    className="h-[calc(100vh-176px)] md:h-[calc(100vh-288px)]"
   >
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
