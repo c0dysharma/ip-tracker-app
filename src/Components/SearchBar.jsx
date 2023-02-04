@@ -7,9 +7,10 @@ const SearchBar = ({ onInputChange, onSearch }) => (
   >
     <input
       type="text"
-      className="w-full max-w-xl px-8 py-4 rounded-l-xl text-lg focus:outline-none"
+      className="w-full max-w-xl px-8 py-4 rounded-l-xl text-lg border-4 border-transparent focus:outline-none"
       placeholder="Search for any IP address or domain."
       onChange={onInputChange}
+      id="searchInput"
     />
     <button type="submit" className="bg-black rounded-r-xl px-6">
       <img src={rightArrowImage} alt="" className="w-4 h-4" />

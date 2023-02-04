@@ -10,29 +10,54 @@ const MainHeading = ({ text }) => (
 );
 
 export default function App() {
-  const [ipAddress, setIpAddress] = useState("35.238.110.42");
+  const [ipAddress, setIpAddress] = useState("");
   const [apidata, setApiData] = useState(null);
 
-  const setAPIData = async () => {
-    const geoIPurl = `https://geo.ipify.org/api/v2/country,city?apiKey=${
-      import.meta.env.VITE_GEO_IP_API_KEY
-    }&ipAddress=${ipAddress}`;
+  const checkIpAddress =
+    /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
+  const checkDomain =
+    /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
 
-    const res = await axios(geoIPurl);
+  const fetchAPIData = async () => {
+    let geoIPLink = `https://geo.ipify.org/api/v2/country,city?apiKey=${
+      import.meta.env.VITE_GEO_IP_API_KEY
+    }&`;
+    if (checkIpAddress.test(ipAddress)) geoIPLink += `ipAddress=${ipAddress}`;
+    else if (checkDomain.test(ipAddress)) geoIPLink += `domain=${ipAddress}`;
+    else if (ipAddress === "")
+      geoIPLink += `ipAddress=`; // to move to your own location when empty
+    else return;
+
+    const res = await axios(geoIPLink);
     setApiData(res.data);
   };
 
   useEffect(() => {
-    try {
-      setAPIData();
-    } catch (error) {
-      console.trace(error);
+    if (
+      checkIpAddress.test(ipAddress) ||
+      checkDomain.test(ipAddress) ||
+      ipAddress === ""
+    ) {
+      document
+        .getElementById("searchInput")
+        .classList.add("border-transparent");
+      return document
+        .getElementById("searchInput")
+        .classList.remove("border-red-500");
     }
+    document.getElementById("searchInput").classList.add("border-red-500");
+    document
+      .getElementById("searchInput")
+      .classList.remove("border-transparent");
+  }, [ipAddress]);
+
+  useEffect(() => {
+    fetchAPIData();
   }, []);
+
   const onSearchClickHandler = (e) => {
     e.preventDefault();
-    setAPIData(ipAddress);
-    console.log(apidata);
+    fetchAPIData();
   };
 
   return (
