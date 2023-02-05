@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import MapView from "./Components/MapView";
@@ -14,6 +14,7 @@ const MainHeading = ({ text }) => (
 export default function App() {
   const [ipAddress, setIpAddress] = useState("");
   const [apidata, setApiData] = useState(null);
+  const inputFieldRef = useRef("");
 
   const checkIpAddress =
     /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
@@ -40,14 +41,10 @@ export default function App() {
       checkDomain.test(ipAddress) ||
       ipAddress === ""
     ) {
-      document
-        .getElementById("searchInput")
-        .classList.add("border-transparent");
-      return document
-        .getElementById("searchInput")
-        .classList.remove("border-red-500");
+      inputFieldRef.current.classList.add("border-transparent");
+      return inputFieldRef.current.classList.remove("border-red-500");
     }
-    document.getElementById("searchInput").classList.add("border-red-500");
+    inputFieldRef.current.classList.add("border-red-500");
     document
       .getElementById("searchInput")
       .classList.remove("border-transparent");
@@ -69,6 +66,7 @@ export default function App() {
         <SearchBar
           onInputChange={(e) => setIpAddress(e.target.value)}
           onSearch={onSearchClickHandler}
+          inputRef={inputFieldRef}
         />
         {apidata && (
           <DetailsCard
